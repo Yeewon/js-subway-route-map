@@ -1,0 +1,2 @@
+export const MIN_STATION_NAME_LENGTH = 2;
+export const MAX_STATION_NAME_LENGTH = 20;
