@@ -1,14 +1,12 @@
-const $modalTriggerBtn = document.querySelector('.modal-trigger-btn');
-const $modalClose = document.querySelector('.modal-close');
-const $modal = document.querySelector('.modal');
+import {$} from '../../utils/DOM.js';
 
-const onModalShow = () => {
-    $modal.classList.add('open');
+export const onModalShow = () => {
+    $('.modal').classList.add('open');
 };
 
-const onModalClose = () => {
-    $modal.classList.remove('open');
+export const onModalClose = () => {
+    $('.modal').classList.remove('open');
 };
 
-$modalTriggerBtn.addEventListener('click', onModalShow);
-$modalClose.addEventListener('click', onModalClose);
+$('.modal-trigger-btn').addEventListener('click', onModalShow);
+$('.modal-close').addEventListener('click', onModalClose);

@@ -1,3 +1,4 @@
 import {navigationTemplate} from './templates/navigation.js';
+import {$} from './utils/DOM.js';
 
-document.querySelector('header').innerHTML = navigationTemplate;
+$('header').innerHTML = navigationTemplate;
