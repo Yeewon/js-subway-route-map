@@ -25,7 +25,6 @@ export const stations = {
 
         if (targetIdx !== -1) return alert(STATION_DUPLICATE_MSG);
 
-        //중복되는 값이 없다면
         this.value.push(newStation);
         setLocalStorage(STATION_LIST, this.value ?? []);
         renderStationList(this.value);

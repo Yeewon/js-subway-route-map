@@ -60,13 +60,3 @@ export const lines = {
         $('#subway-line-color').value = targetLineInfo.color;
     },
 };
-
-// const lineInfo = {
-//     name: '',
-//     upStation: '',
-//     downStation: '',
-//     distance: '',
-//     duration: '',
-//     color: '',
-//     section: [],
-// };

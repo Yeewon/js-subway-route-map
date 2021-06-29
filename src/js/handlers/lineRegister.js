@@ -1,17 +1,16 @@
 import {colorOptions} from '/src/js/utils/mock.js';
 import {$} from '../utils/DOM.js';
 import {createStationSelectTemplate} from '../templates/stationSelect.js';
-import {LINE_LIST, STATION_LIST} from '../constants/localStorage.js';
+import {STATION_LIST} from '../constants/localStorage.js';
 import {getLocalStorage} from '../utils/localStorage.js';
 import {MIN_LINE_NAME_LENGTH, MAX_LINE_NAME_LENGTH} from '../constants/constant.js';
 import {MIN_LINE_NAME_MSG, MAX_LINE_NAME_MSG, CONFIRM_MSG} from '../constants/message.js';
 import {lines} from '../states/lines.js';
-import {onModalShow} from '../ui/modal/index.js';
 
 export const initState = () => {
     setColorSelector();
     setModalInfo();
-    lines.init(); // 노선 정보를 가져와 화면에 띄워줌.
+    lines.init();
 };
 
 export const initEvent = () => {
@@ -19,8 +18,6 @@ export const initEvent = () => {
     $('.subway-line-color-selector').addEventListener('click', handleColorSelector);
 
     $('#lineList').addEventListener('click', handleLineControl);
-    // $('#update').addEventListener('click', handleLineUpdate);
-    // $('#remove').addEventListener('click', handleLineRemove);
 };
 
 const handleLineRegister = (e) => {

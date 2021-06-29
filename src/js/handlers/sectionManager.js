@@ -2,7 +2,6 @@ import {$} from '../utils/DOM.js';
 import {LINE_LIST, STATION_LIST} from '../constants/localStorage.js';
 import {createStationSelectTemplate} from '../templates/stationSelect.js';
 import {getLocalStorage, setLocalStorage} from '../utils/localStorage.js';
-import {createSectionListTemplate} from '../templates/sectionList.js';
 import {onModalClose} from '../ui/modal/index.js';
 import {renderSectionList} from '../viewController/subway.js';
 
