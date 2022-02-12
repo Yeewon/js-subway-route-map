@@ -1,19 +1,19 @@
-export const createSectionListTemplate = (sectionList) => {
+export const createSectionListTemplate = sectionList => {
   const stationNameList = [];
-  sectionList.map((section) => {
-    section.map((stationName) => {
+  sectionList.map(section => {
+    section.map(stationName => {
       if (stationNameList.indexOf(stationName) === -1)
         stationNameList.push(stationName);
     });
   });
 
   return `${stationNameList
-    .map((stationName) => sectionListTemplate(stationName))
+    .map(stationName => sectionListTemplate(stationName))
     .reverse()
-    .join("")}`;
+    .join('')}`;
 };
 
-const sectionListTemplate = (stationName) => {
+const sectionListTemplate = stationName => {
   return `
     <li class="section-list-item d-flex items-center py-2">
         <div id="section-name" class="w-100 pl-2">${stationName}</div>

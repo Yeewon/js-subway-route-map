@@ -1,9 +1,9 @@
-import { LINE_LIST } from "../constants/localStorage.js";
-import { getLocalStorage, setLocalStorage } from "../utils/localStorage.js";
-import { renderLineList } from "../viewController/subway.js";
-import { LINE_DUPLICATE_MSG } from "../constants/message.js";
-import { onModalClose, onModalShow } from "../ui/modal/index.js";
-import { $ } from "../utils/DOM.js";
+import { LINE_LIST } from '../constants/localStorage.js';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage.js';
+import { renderLineList } from '../viewController/subway.js';
+import { LINE_DUPLICATE_MSG } from '../constants/message.js';
+import { onModalClose, onModalShow } from '../ui/modal/index.js';
+import { $ } from '../utils/DOM.js';
 
 export const lines = {
   value: [],
@@ -30,7 +30,7 @@ export const lines = {
     console.log(this.value);
     setLocalStorage(LINE_LIST, this.value ?? []);
     renderLineList(this.value);
-    $("#line-register-form").reset();
+    $('#line-register-form').reset();
     onModalClose();
   },
 
@@ -39,14 +39,14 @@ export const lines = {
     // click한 노선의 정보를 띄워줌.
     const oldLineList = [...this.value];
     const targetLineInfo = oldLineList.filter(
-      (lineInfo) => lineInfo.name === targetLineName
+      lineInfo => lineInfo.name === targetLineName,
     )[0];
     this.modalSetting(targetLineInfo);
   },
   remove(targetLineName) {
     const oldLineList = [...this.value];
     const newLineList = oldLineList.filter(
-      (lineInfo) => lineInfo.name !== targetLineName
+      lineInfo => lineInfo.name !== targetLineName,
     );
 
     this.set(newLineList);
@@ -56,11 +56,11 @@ export const lines = {
   modalSetting(targetLineInfo) {
     // $('#modal-title').innerText = '🛤️ 노선 수정';
 
-    $("#subway-line-name").value = targetLineInfo.name;
-    $("#up-station").value = targetLineInfo.upStation;
-    $("#down-station").value = targetLineInfo.downStation;
-    $("#distance").value = targetLineInfo.distance;
-    $("#duration").value = targetLineInfo.duration;
-    $("#subway-line-color").value = targetLineInfo.color;
+    $('#subway-line-name').value = targetLineInfo.name;
+    $('#up-station').value = targetLineInfo.upStation;
+    $('#down-station').value = targetLineInfo.downStation;
+    $('#distance').value = targetLineInfo.distance;
+    $('#duration').value = targetLineInfo.duration;
+    $('#subway-line-color').value = targetLineInfo.color;
   },
 };

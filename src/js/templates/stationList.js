@@ -1,11 +1,11 @@
-export const createStationListTemplate = (stationList) => {
+export const createStationListTemplate = stationList => {
   return `${stationList
-    .map((stationName) => stationListTemplate(stationName))
+    .map(stationName => stationListTemplate(stationName))
     .reverse()
-    .join("")}`;
+    .join('')}`;
 };
 
-const stationListTemplate = (stationName) => {
+const stationListTemplate = stationName => {
   return `
     <li class="station-list-item d-flex items-center py-2">
         <div id="station-name" class="w-100 pl-2">${stationName}</div>

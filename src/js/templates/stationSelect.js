@@ -1,10 +1,10 @@
-export const createStationSelectTemplate = (stationList) => {
+export const createStationSelectTemplate = stationList => {
   return `${stationList
-    .map((stationName) => stationSelectTemplate(stationName))
+    .map(stationName => stationSelectTemplate(stationName))
     .reverse()
-    .join("")}`;
+    .join('')}`;
 };
 
-const stationSelectTemplate = (stationName) => {
+const stationSelectTemplate = stationName => {
   return `<option>${stationName}</option>`;
 };
