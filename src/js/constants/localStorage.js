@@ -1,3 +1,3 @@
-export const STATION_LIST = 'stationList';
+export const STATION_LIST = "stationList";
 
-export const LINE_LIST = 'lineList';
+export const LINE_LIST = "lineList";

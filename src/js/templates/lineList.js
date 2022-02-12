@@ -1,12 +1,12 @@
 export const createLineListTemplate = (lineList) => {
-    return `${lineList
-        .map((lineInfo) => lineListTemplate(lineInfo))
-        .reverse()
-        .join('')}`;
+  return `${lineList
+    .map((lineInfo) => lineListTemplate(lineInfo))
+    .reverse()
+    .join("")}`;
 };
 
 const lineListTemplate = (lineInfo) => {
-    return `
+  return `
     <li class="d-flex items-center py-2 relative">
         <span class="subway-line-color-dot ${lineInfo.color}"></span>
         <span class="w-100 pl-6 subway-line-list-item-name">

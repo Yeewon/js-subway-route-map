@@ -1,4 +1,4 @@
-import {navigationTemplate} from './templates/navigation.js';
-import {$} from './utils/DOM.js';
+import { navigationTemplate } from "./templates/navigation.js";
+import { $ } from "./utils/DOM.js";
 
-$('header').innerHTML = navigationTemplate;
+$("header").innerHTML = navigationTemplate;
