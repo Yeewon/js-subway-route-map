@@ -17,6 +17,7 @@ export const stations = {
 
   set(newStations = []) {
     this.value = newStations;
+    setLocalStorage(STATION_LIST, newStations);
     renderStationList(this.value);
   },
 
@@ -24,18 +25,17 @@ export const stations = {
     if (this.value.includes(newStation)) {
       return alert(STATION_DUPLICATE_MSG);
     }
-    const newValue = [...this.value, newStation];
-    setLocalStorage(STATION_LIST, newValue ?? []);
-    this.set(newValue);
+    const newStations = [...this.value, newStation];
+    this.set(newStations);
   },
 
   update(targetStation) {
     const targetStationIdx = this.value.indexOf(targetStation);
-    const updatedStation = $('#station-name-update-input').value;
+    const newStation = $('#station-name-update-input').value;
+    const newStations = [...this.value];
 
-    this.value[targetStationIdx] = updatedStation;
-    setLocalStorage(STATION_LIST, this.value ?? []);
-    renderStationList(this.value);
+    newStations[targetStationIdx] = newStation;
+    this.set(newStations);
 
     $('.modal').classList.remove('open');
   },
