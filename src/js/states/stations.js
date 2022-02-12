@@ -21,13 +21,12 @@ export const stations = {
   },
 
   add(newStation = '') {
-    const targetIdx = this.value.indexOf(newStation);
-
-    if (targetIdx !== -1) return alert(STATION_DUPLICATE_MSG);
-
-    this.value.push(newStation);
-    setLocalStorage(STATION_LIST, this.value ?? []);
-    renderStationList(this.value);
+    if (this.value.includes(newStation)) {
+      return alert(STATION_DUPLICATE_MSG);
+    }
+    const newValue = [...this.value, newStation];
+    setLocalStorage(STATION_LIST, newValue ?? []);
+    this.set(newValue);
   },
 
   update(targetStation) {

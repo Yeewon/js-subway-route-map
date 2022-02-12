@@ -31,10 +31,12 @@ const onModalClose = () => {
 };
 
 const checkNameRegulations = stationName => {
-  if (stationName.length < MIN_STATION_NAME_LENGTH)
+  if (stationName.length < MIN_STATION_NAME_LENGTH) {
     return alert(MIN_STATION_NAME_MSG);
-  if (stationName.length > MAX_STATION_NAME_LENGTH)
+  }
+  if (stationName.length > MAX_STATION_NAME_LENGTH) {
     return alert(MAX_STATION_NAME_MSG);
+  }
   return true;
 };
 
@@ -43,9 +45,10 @@ const handleStationRegister = e => {
 
   const stationName = e.target.elements['station-name-input'].value;
 
-  e.target.elements['station-name-input'].value = '';
-  if (!checkNameRegulations(stationName)) return;
-  stations.add(stationName);
+  if (checkNameRegulations(stationName)) {
+    stations.add(stationName);
+    e.target.elements['station-name-input'].value = '';
+  }
 };
 
 const handleStationUpdate = e => {
