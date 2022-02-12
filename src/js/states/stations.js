@@ -18,7 +18,7 @@ export const stations = {
   set(newStations = []) {
     this.value = newStations;
     setLocalStorage(STATION_LIST, newStations);
-    renderStationList(this.value);
+    renderStationList(newStations);
   },
 
   add(newStation = '') {
