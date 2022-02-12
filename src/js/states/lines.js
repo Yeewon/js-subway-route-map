@@ -16,20 +16,22 @@ export const lines = {
     return this.value;
   },
 
-  set(newLine = []) {
-    this.value = newLine;
-    renderLineList(this.value);
+  set(newLines = []) {
+    this.value = newLines;
+    setLocalStorage(LINE_LIST, newLines ?? []);
+    renderLineList(newLines);
   },
 
   add(newLine = {}) {
-    const targetIdx = this.value.indexOf(newLine);
-    if (targetIdx > -1) return alert(LINE_DUPLICATE_MSG);
+    const isDuplicate = !!this.value.filter(({ name }) => name === newLine.name)
+      .length;
+    if (isDuplicate) {
+      return alert(LINE_DUPLICATE_MSG);
+    }
 
-    //중복되는 값이 없다면
-    this.value.push(newLine);
-    console.log(this.value);
-    setLocalStorage(LINE_LIST, this.value ?? []);
-    renderLineList(this.value);
+    const newLines = [...this.value, newLine];
+    this.set(newLines);
+
     $('#line-register-form').reset();
     onModalClose();
   },
@@ -43,6 +45,7 @@ export const lines = {
     )[0];
     this.modalSetting(targetLineInfo);
   },
+
   remove(targetLineName) {
     const oldLineList = [...this.value];
     const newLineList = oldLineList.filter(
@@ -53,6 +56,7 @@ export const lines = {
     setLocalStorage(LINE_LIST, newLineList);
     renderLineList(this.value);
   },
+
   modalSetting(targetLineInfo) {
     // $('#modal-title').innerText = '🛤️ 노선 수정';
 

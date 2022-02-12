@@ -3,16 +3,9 @@ import { $ } from '../utils/DOM.js';
 import { createStationSelectTemplate } from '../templates/stationSelect.js';
 import { STATION_LIST } from '../constants/localStorage.js';
 import { getLocalStorage } from '../utils/localStorage.js';
-import {
-  MIN_LINE_NAME_LENGTH,
-  MAX_LINE_NAME_LENGTH,
-} from '../constants/constant.js';
-import {
-  MIN_LINE_NAME_MSG,
-  MAX_LINE_NAME_MSG,
-  CONFIRM_MSG,
-} from '../constants/message.js';
+import { REMOVE_CONFIRM_MSG } from '../constants/message.js';
 import { lines } from '../states/lines.js';
+import { checkNameRegulations } from '../utils/checkRegulations.js';
 
 export const initState = () => {
   setColorSelector();
@@ -36,8 +29,8 @@ const handleLineRegister = e => {
   const lineName = $('#subway-line-name').value;
   if (!checkNameRegulations(lineName)) return;
 
-  saveLineInfo();
-  lines.add(lineInfo);
+  const newLine = setLineInfo();
+  lines.add(newLine);
 };
 
 const handleLineControl = e => {
@@ -58,7 +51,7 @@ const handleLineRemove = e => {
   const targetLineName = e.target
     .closest('li')
     .querySelector('.subway-line-list-item-name').innerText;
-  if (!window.confirm(CONFIRM_MSG.line)) return;
+  if (!window.confirm(REMOVE_CONFIRM_MSG.line)) return;
   lines.remove(targetLineName);
 };
 
@@ -85,14 +78,6 @@ const setModalInfo = () => {
   );
 };
 
-const checkNameRegulations = stationName => {
-  if (stationName.length < MIN_LINE_NAME_LENGTH)
-    return alert(MIN_LINE_NAME_MSG);
-  else if (stationName.length > MAX_LINE_NAME_LENGTH)
-    return alert(MAX_LINE_NAME_MSG);
-  return true;
-};
-
 const subwayLineColorOptionTemplate = (color, index) => {
   const hasNewLine = (index + 1) % 7 === 0;
   return `<button id="color" type="button" class="color-option bg-${color}"></button> ${
@@ -100,21 +85,12 @@ const subwayLineColorOptionTemplate = (color, index) => {
   }`;
 };
 
-const saveLineInfo = () => {
-  lineInfo.name = $('#subway-line-name').value;
-  lineInfo.upStation = $('#up-station').value;
-  lineInfo.downStation = $('#down-station').value;
-  lineInfo.distance = $('#distance').value;
-  lineInfo.duration = $('#duration').value;
-  lineInfo.color = $('#subway-line-color').value;
-};
-
-const lineInfo = {
-  name: '',
-  upStation: '',
-  downStation: '',
-  distance: '',
-  duration: '',
-  color: '',
+const setLineInfo = () => ({
+  name: $('#subway-line-name').value,
+  upStation: $('#up-station').value,
+  downStation: $('#down-station').value,
+  distance: $('#distance').value,
+  duration: $('#duration').value,
+  color: $('#subway-line-color').value,
   section: [],
-};
+});
