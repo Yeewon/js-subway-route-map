@@ -1,7 +1,7 @@
 import {
   MIN_STATION_NAME_MSG,
   MAX_STATION_NAME_MSG,
-  CONFIRM_MSG,
+  REMOVE_CONFIRM_MSG,
 } from '../constants/message.js';
 import { stations } from '../states/stations.js';
 import {
@@ -24,6 +24,10 @@ export const initEvent = () => {
   );
   $('#stationList').addEventListener('click', handleStationControl);
   $('.modal-close').addEventListener('click', onModalClose);
+};
+
+const onModalShow = () => {
+  $('.modal').classList.add('open');
 };
 
 const onModalClose = () => {
@@ -54,26 +58,25 @@ const handleStationRegister = e => {
 const handleStationUpdate = e => {
   e.preventDefault();
 
-  stations.update(targetStation);
+  const newStation = $('#station-name-update-input').value;
+
+  if (checkNameRegulations(newStation)) {
+    stations.update(targetStation, newStation);
+    onModalClose();
+  }
 };
 
-const handleStationControl = e => {
-  e.preventDefault();
+const handleStationControl = ({ target }) => {
+  const type = target.id;
+  if (!['update', 'remove'].includes(type)) return;
 
-  if (e.target.id === 'update') {
-    targetStation = e.target
-      .closest('li')
-      .querySelector('#station-name').innerText;
+  targetStation = target.closest('li').querySelector('#station-name').innerText;
 
+  if (type === 'update') {
+    onModalShow();
     $('#station-name-update-input').value = targetStation;
-    $('.modal').classList.add('open');
-  }
-
-  if (e.target.id === 'remove') {
-    const targetStationName = e.target
-      .closest('li')
-      .querySelector('#station-name').innerText;
-    if (!window.confirm(CONFIRM_MSG.station)) return;
-    stations.remove(targetStationName);
+  } else {
+    if (!window.confirm(REMOVE_CONFIRM_MSG.station)) return;
+    stations.remove(targetStation);
   }
 };

@@ -29,24 +29,20 @@ export const stations = {
     this.set(newStations);
   },
 
-  update(targetStation) {
+  update(targetStation, newStation) {
     const targetStationIdx = this.value.indexOf(targetStation);
-    const newStation = $('#station-name-update-input').value;
     const newStations = [...this.value];
 
     newStations[targetStationIdx] = newStation;
     this.set(newStations);
-
-    $('.modal').classList.remove('open');
   },
 
   remove(targetStation) {
     const oldStationList = [...this.value];
-    const newStationList = oldStationList.filter(
+    const newStations = oldStationList.filter(
       station => station !== targetStation,
     );
 
-    this.set(newStationList);
-    setLocalStorage(STATION_LIST, newStationList);
+    this.set(newStations);
   },
 };

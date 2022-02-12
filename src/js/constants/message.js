@@ -10,7 +10,7 @@ export const MAX_LINE_NAME_MSG =
 export const LINE_DUPLICATE_MSG =
   '중복된 지하철 노선 이름이 등록될 수 없습니다.';
 
-export const CONFIRM_MSG = {
+export const REMOVE_CONFIRM_MSG = {
   station: '선택한 지하철 역을 정말 삭제하시겠습니까?',
   line: '선택한 노선을 정말 삭제하시겠습니까?',
 };
