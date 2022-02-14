@@ -1,33 +1,24 @@
 import { $ } from '../utils/DOM.js';
 import { LINE_LIST, STATION_LIST } from '../constants/localStorage.js';
-import { createStationSelectTemplate } from '../templates/stationSelect.js';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage.js';
 import { onModalClose } from '../ui/modal/index.js';
-import { renderSectionList } from '../viewController/subway.js';
+import {
+  renderLineSelect,
+  renderSectionList,
+  renderStationSelect,
+} from '../viewController/subway.js';
 
 export const stationList = getLocalStorage(STATION_LIST);
 export const lineList = getLocalStorage(LINE_LIST);
 
 export const initState = () => {
-  const lineNameList = [];
-  lineList.map(lineInfo => lineNameList.push(lineInfo.name));
-  $('#subway-line-for-section').insertAdjacentHTML(
-    'beforeend',
-    createStationSelectTemplate(lineNameList),
-  );
-  $('#subway-line').insertAdjacentHTML(
-    'beforeend',
-    createStationSelectTemplate(lineNameList),
-  );
+  const lineNameList = lineList.map(({ name }) => name);
 
-  $('#up-station').insertAdjacentHTML(
-    'beforeend',
-    createStationSelectTemplate(stationList),
-  );
-  $('#down-station').insertAdjacentHTML(
-    'beforeend',
-    createStationSelectTemplate(stationList),
-  );
+  renderLineSelect('subway-line', lineNameList);
+  renderLineSelect('subway-line-for-section', lineNameList);
+
+  renderStationSelect('up-station', stationList);
+  renderStationSelect('down-station', stationList);
 };
 
 export const initEvent = () => {
@@ -36,10 +27,9 @@ export const initEvent = () => {
 };
 
 const handleLineSelect = e => {
-  const selectedLineInfo = getSelectedLineInfo();
-
-  $('#subway-line').className = selectedLineInfo.color;
-  renderSectionList(selectedLineInfo.section);
+  const { color, section } = getSelectedLineInfo();
+  $('#subway-line').className = color;
+  renderSectionList(section);
 };
 
 const handleLineRegister = e => {
@@ -48,21 +38,22 @@ const handleLineRegister = e => {
   const lineName = $('#subway-line-for-section').value;
   const upStation = $('#up-station').value;
   const downStation = $('#down-station').value;
-  const selectedLineInfo = getSelectedLineInfo();
 
-  lineList.map(lineInfo => {
-    if (lineInfo.name === lineName)
-      return lineInfo.section.push([upStation, downStation]);
-  });
-  setLocalStorage(LINE_LIST, lineList ?? []);
-  renderSectionList(selectedLineInfo.section);
+  // const selectedLineInfo = getSelectedLineInfo();
+
+  // lineList.map(lineInfo => {
+  //   if (lineInfo.name === lineName)
+  //     return lineInfo.section.push([upStation, downStation]);
+  // });
+  // setLocalStorage(LINE_LIST, lineList ?? []);
+  // renderSectionList(selectedLineInfo.section);
   onModalClose();
 };
 
 const getSelectedLineInfo = () => {
-  const selectedLine = $('#subway-line').value;
+  const selectedLineName = $('#subway-line').value;
   const selectedLineInfo = lineList.filter(
-    lineInfo => lineInfo.name === selectedLine,
+    ({ name }) => name === selectedLineName,
   )[0];
 
   return selectedLineInfo;
