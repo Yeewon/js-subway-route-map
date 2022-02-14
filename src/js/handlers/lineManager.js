@@ -35,7 +35,6 @@ const handleLineRegister = e => {
   if (!checkNameRegulations(lineName)) return;
 
   const newLine = setLineInfo();
-  console.log(targetLineName);
   targetLineName ? lines.update(targetLineName, newLine) : lines.add(newLine);
   onModalClose();
 };
@@ -95,7 +94,7 @@ const setLineInfo = () => ({
   distance: $('#distance').value,
   duration: $('#duration').value,
   color: $('#subway-line-color').value,
-  section: [],
+  section: [$('#up-station').value, $('#down-station').value],
 });
 
 const setUpdateModal = targetLineName => {
