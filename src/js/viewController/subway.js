@@ -6,6 +6,7 @@ import {
   registerButtonTemplate,
   updateButtonTemplate,
 } from '../templates/lineModalSubmitButton.js';
+import { createStationSelectTemplate } from '../templates/stationSelect.js';
 
 export const renderStationList = stationList => {
   $('#stationList').innerHTML = createStationListTemplate(stationList);
@@ -22,4 +23,18 @@ export const renderSectionList = sectionList => {
 export const renderLineModalButton = (type = 'register') => {
   $('#line-submit').innerHTML =
     type === 'register' ? registerButtonTemplate : updateButtonTemplate;
+};
+
+export const renderLineSelect = (targetId = '', lineNameList) => {
+  $(`#${targetId}`).insertAdjacentHTML(
+    'beforeend',
+    createStationSelectTemplate(lineNameList),
+  );
+};
+
+export const renderStationSelect = (targetId = '', stationList) => {
+  $(`#${targetId}`).insertAdjacentHTML(
+    'beforeend',
+    createStationSelectTemplate(stationList),
+  );
 };
