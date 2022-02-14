@@ -75,7 +75,9 @@ const handleStationControl = ({ target }) => {
   if (type === 'update') {
     onModalShow();
     $('#station-name-update-input').value = targetStation;
-  } else {
+  }
+  if (type === 'remove') {
+    // 이미 노선에 추가된 역인지 추가 확인 필요
     if (!window.confirm(REMOVE_CONFIRM_MSG.station)) return;
     stations.remove(targetStation);
   }
