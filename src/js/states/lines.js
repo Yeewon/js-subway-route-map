@@ -2,7 +2,7 @@ import { LINE_LIST } from '../constants/localStorage.js';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage.js';
 import { renderLineList } from '../viewController/subway.js';
 import { LINE_DUPLICATE_MSG } from '../constants/message.js';
-import { onModalClose, onModalShow } from '../ui/modal/index.js';
+import { onModalClose } from '../ui/modal/index.js';
 import { $ } from '../utils/DOM.js';
 
 export const lines = {
@@ -14,6 +14,13 @@ export const lines = {
 
   get() {
     return this.value;
+  },
+
+  getLineInfo(targetLineName) {
+    const targetLineInfo = this.value.filter(
+      ({ name }) => name === targetLineName,
+    )[0];
+    return targetLineInfo;
   },
 
   set(newLines = []) {
@@ -31,40 +38,23 @@ export const lines = {
 
     const newLines = [...this.value, newLine];
     this.set(newLines);
-
-    $('#line-register-form').reset();
-    onModalClose();
   },
 
-  update(targetLineName) {
-    onModalShow();
-    // click한 노선의 정보를 띄워줌.
-    const oldLineList = [...this.value];
-    const targetLineInfo = oldLineList.filter(
-      lineInfo => lineInfo.name === targetLineName,
-    )[0];
-    this.modalSetting(targetLineInfo);
+  update(targetLineName, newLine) {
+    const oldLines = [...this.value];
+    const newLines = oldLines.map(oldLine => {
+      const { name } = oldLine;
+      return name === targetLineName ? newLine : oldLine;
+    });
+    this.set(newLines);
   },
 
   remove(targetLineName) {
-    const oldLineList = [...this.value];
-    const newLineList = oldLineList.filter(
+    const oldLines = [...this.value];
+    const newLines = oldLines.filter(
       lineInfo => lineInfo.name !== targetLineName,
     );
 
-    this.set(newLineList);
-    setLocalStorage(LINE_LIST, newLineList);
-    renderLineList(this.value);
-  },
-
-  modalSetting(targetLineInfo) {
-    // $('#modal-title').innerText = '🛤️ 노선 수정';
-
-    $('#subway-line-name').value = targetLineInfo.name;
-    $('#up-station').value = targetLineInfo.upStation;
-    $('#down-station').value = targetLineInfo.downStation;
-    $('#distance').value = targetLineInfo.distance;
-    $('#duration').value = targetLineInfo.duration;
-    $('#subway-line-color').value = targetLineInfo.color;
+    this.set(newLines);
   },
 };
