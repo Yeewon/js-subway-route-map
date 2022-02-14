@@ -2,8 +2,6 @@ import { LINE_LIST } from '../constants/localStorage.js';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage.js';
 import { renderLineList } from '../viewController/subway.js';
 import { LINE_DUPLICATE_MSG } from '../constants/message.js';
-import { onModalClose } from '../ui/modal/index.js';
-import { $ } from '../utils/DOM.js';
 
 export const lines = {
   value: [],
